@@ -253,11 +253,15 @@ func (env *environment) getBatteryInfo() (*battery.Battery, error) {
 	if err != nil {
 		return nil, err
 	}
-	batt := &battery.Battery{}
-	for _, bt := range batteries {
-		batt.Current += bt.Current
-		batt.Full += bt.Full
-		batt.State = getMostLogicalState(batt.State, bt.State)
+
+	var batt *battery.Battery = nil
+	if batteries != nil {
+		batt := &battery.Battery{}
+		for _, bt := range batteries {
+			batt.Current += bt.Current
+			batt.Full += bt.Full
+			batt.State = getMostLogicalState(batt.State, bt.State)
+		}
 	}
 	return batt, nil
 }

@@ -41,6 +41,11 @@ func (b *batt) enabled() bool {
 		b.Error = err.Error()
 		return true
 	}
+
+	if b.Battery == nil {
+		return false
+	}
+
 	if err != nil {
 		// On Windows, it sometimes errors when the battery is full.
 		// This hack ensures we display a fully charged battery, even if
